@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,27 +17,22 @@ public class Animal extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long animalid;
 
+    @Column(nullable = false)
     private String animaltype;
 
-    @ManyToOne
-    @JoinColumn(name = "zooid",
-        nullable = false) // primary key inside of zoo, sql handles in relational DB
-    @JsonIgnoreProperties("animals")
-    private Animal animal; // java handles as object
-
-    @ManyToMany(mappedBy = "animals")
-    @JsonIgnoreProperties(value = "animals")
-    private Set<Zoo> zoos = new HashSet<>();
+    @OneToMany(mappedBy = "animal",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonIgnoreProperties(value = "animal")
+    private Set<Zooanimals> zooanimals = new HashSet<>();
 
     public Animal()
     {
     }
 
     public Animal(
-        long animalid,
         String animaltype)
     {
-        this.animalid = animalid;
         this.animaltype = animaltype;
     }
 
@@ -57,15 +54,5 @@ public class Animal extends Auditable
     public void setAnimaltype(String animaltype)
     {
         this.animaltype = animaltype;
-    }
-
-    public Set<Zoo> getZoos()
-    {
-        return zoos;
-    }
-
-    public void setZoos(Set<Zoo> zoos)
-    {
-        this.zoos = zoos;
     }
 }

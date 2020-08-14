@@ -22,16 +22,21 @@ public class Zooanimals extends Auditable implements Serializable
     @JoinColumn(name = "zooid")
     private Zoo zoo;
 
+    @JoinColumn(name = "incomingzoo")
+    private String incomingzoo;
+
     public Zooanimals()
     {
     }
 
     public Zooanimals(
         Animal animal,
-        Zoo zoo)
+        Zoo zoo,
+        String incomingzoo)
     {
         this.animal = animal;
         this.zoo = zoo;
+        this.incomingzoo = incomingzoo;
     }
 
     public Animal getAnimal()
@@ -52,6 +57,16 @@ public class Zooanimals extends Auditable implements Serializable
     public void setZoo(Zoo zoo)
     {
         this.zoo = zoo;
+    }
+
+    public String getIncomingzoo()
+    {
+        return incomingzoo;
+    }
+
+    public void setIncomingzoo(String incomingzoo)
+    {
+        this.incomingzoo = incomingzoo;
     }
 
     @Override

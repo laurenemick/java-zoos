@@ -11,6 +11,8 @@ public class Zooanimalsid implements Serializable
 
     private long animal;
 
+    private String incomingzoo;
+
     public Zooanimalsid()
     {
     }
@@ -33,6 +35,16 @@ public class Zooanimalsid implements Serializable
     public void setAnimal(long animal)
     {
         this.animal = animal;
+    }
+
+    public String getIncomingzoo()
+    {
+        return incomingzoo;
+    }
+
+    public void setIncomingzoo(String incomingzoo)
+    {
+        this.incomingzoo = incomingzoo;
     }
 
     @Override
